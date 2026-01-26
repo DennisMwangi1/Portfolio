@@ -1,6 +1,8 @@
 import React from 'react';
 import { Github, Linkedin, Mail, ExternalLink, Download } from 'lucide-react';
 import Lanyard from '@/components/shared/Lanyard';
+import ProfileCard from '@/components/ProfileCard';
+import Dennis from '@/assets/lanyard/Dennis.jpeg';
 
 const About: React.FC = () => {
   return (
@@ -9,7 +11,7 @@ const About: React.FC = () => {
       <div className="md:flex gap-12 items-start">
         <div className="flex-1 max-w-2xl">
           <div className="mb-16">
-            <h1 className="text-5xl font-black mb-4">Dennis Mwangi</h1>
+            <h1 className="text-5xl font-black mb-4">Dennis Mwangi.</h1>
             <p className="text-xl text-gray-600 font-medium mb-6">
               Full Stack Developer | Building elegant software solutions
             </p>
@@ -51,7 +53,20 @@ const About: React.FC = () => {
 
         </div>
         <div className="hidden md:block w-1/3 h-[600px] sticky top-24">
-          <Lanyard position={[0, 0, 15]} gravity={[0, -40, 0]} />
+          <ProfileCard
+            name="Dennis Mwangi"
+            title="Full Stack Software Engineer"
+            handle="dennismwangi1"
+            status="Online"
+            contactText="Contact Me"
+            avatarUrl={Dennis}
+            showUserInfo
+            enableTilt={true}
+            enableMobileTilt
+            onContactClick={() => console.log('Contact clicked')}
+            behindGlowColor="rgba(125, 190, 255, 0.67)"
+            customInnerGradient="linear-gradient(145deg,#60496e8c 0%,#71C4FF44 100%)"
+          />
         </div>
       </div>
 
@@ -161,7 +176,9 @@ const About: React.FC = () => {
           <Mail size={18} /> Get In Touch
         </a>
       </section>
+
     </div>
+
   );
 };
 

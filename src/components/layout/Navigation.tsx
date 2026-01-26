@@ -44,7 +44,7 @@ const Navigation: React.FC<NavigationProps> = ({ currentView, onNavigate, onOpen
           className="flex items-center gap-1 cursor-pointer"
           onClick={onReturnToLanding}
         >
-          <span className="text-xl font-black tracking-tighter">Dennis.</span>
+          <span className="text-xl font-black tracking-tighter">Dennis Mwangi.</span>
         </div>
 
         <div className="flex gap-8 text-sm font-bold">

@@ -650,57 +650,13 @@ export default function DomeGallery({
     overlay.className = 'enlarge';
     overlay.style.cssText = `position:absolute; left:${frameR.left - mainR.left}px; top:${frameR.top - mainR.top}px; width:${frameR.width}px; height:${frameR.height}px; opacity:0; z-index:30; will-change:transform,opacity; transform-origin:top left; transition:transform ${enlargeTransitionMs}ms ease, opacity ${enlargeTransitionMs}ms ease; border-radius:${openedImageBorderRadius}; overflow:hidden; background:white;`;
 
-    // Find the case study if not provided directly
-    const study = caseStudy || items.find(it => it.src === (parent.dataset.src || (el.querySelector('img') as HTMLImageElement)?.src))?.caseStudy;
-
-    if (study) {
-      overlay.innerHTML = `
-        <div class="dg-card">
-          <div class="dg-card-img-container">
-            <img src="${study.image}" alt="${study.clientName}" />
-          </div>
-          <div class="dg-card-content-container">
-            <h2 class="dg-card-title">${study.clientName}</h2>
-            
-            <div class="dg-card-section">
-              <div class="dg-card-section-label">The Challenge</div>
-              <div class="dg-card-section-text">${study.problem}</div>
-            </div>
-            
-            <div class="dg-card-section">
-              <div class="dg-card-section-label">Our Solution</div>
-              <div class="dg-card-section-text">${study.solution}</div>
-            </div>
-            
-            <div class="dg-card-section">
-              <div class="dg-card-section-label">The Outcome</div>
-              <div class="dg-card-section-text">${study.outcome}</div>
-            </div>
-            
-            <div class="dg-card-footer">
-              <a href="${study.liveUrl}" target="_blank" rel="noopener noreferrer" class="dg-btn-primary">
-                Visit Project
-              </a>
-              <button class="dg-btn-close">Return to Gallery</button>
-            </div>
-          </div>
-        </div>
-      `;
-      const closeBtn = overlay.querySelector('.dg-btn-close');
-      if (closeBtn) closeBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        scrimRef.current?.click();
-      });
-    } else {
-      const rawSrc = parent.dataset.src || (el.querySelector('img') as HTMLImageElement)?.src || '';
-      const rawAlt = parent.dataset.alt || (el.querySelector('img') as HTMLImageElement)?.alt || '';
-      const img = document.createElement('img');
-      img.src = rawSrc;
-      img.alt = rawAlt;
-      img.style.cssText = `width:100%; height:100%; object-fit:cover;`;
-      overlay.appendChild(img);
-    }
-
+    const rawSrc = parent.dataset.src || (el.querySelector('img') as HTMLImageElement)?.src || '';
+    const rawAlt = parent.dataset.alt || (el.querySelector('img') as HTMLImageElement)?.alt || '';
+    const img = document.createElement('img');
+    img.src = rawSrc;
+    img.alt = rawAlt;
+    img.style.cssText = `width:100%; height:100%; object-fit:cover;`;
+    overlay.appendChild(img);
     viewerRef.current!.appendChild(overlay);
     const tx0 = tileR.left - frameR.left;
     const ty0 = tileR.top - frameR.top;

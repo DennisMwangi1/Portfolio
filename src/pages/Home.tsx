@@ -58,10 +58,10 @@ const Home: React.FC<HomeProps> = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-white text-gray-900 pb-20">
+    <div className="min-h-screen bg-white text-gray-900 ">
       {/* Minimal Header */}
       <nav className="border-b-2 border-black py-4 px-6 flex justify-between items-center bg-white sticky top-0 z-50">
-        <div className="font-black text-2xl tracking-tighter">Dennis.</div>
+        <div className="font-black text-2xl tracking-tighter">Dennis Mwangi.</div>
         <button
           onClick={handleEnterApp}
           className="font-bold underline decoration-2 underline-offset-4 hover:bg-black hover:text-white px-2 py-1 transition-all"
@@ -207,12 +207,11 @@ const Home: React.FC<HomeProps> = () => {
       </section>
 
       {/* Footer */}
-      <footer className="border-t-2 border-black py-12 px-6 bg-white">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+      <footer className="border-t-2 border-black px-6 bg-white">
+        <div className="mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
           <div>
-            <div className="font-black text-xl mb-2">Dennis Mwangi</div>
             <p className="text-gray-500 max-w-xs text-sm">
-              Full-stack developer building beautiful and functional web applications.
+              Made with <span className="text-red-500">&hearts;</span> by Dennis Mwangi.
             </p>
           </div>
           <div className="flex gap-4">

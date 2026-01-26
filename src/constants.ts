@@ -104,5 +104,5 @@ export const MOCK_PROJECTS: Project[] = [
   },
 ];
 
-export const APP_NAME = "Dennis Mwangi";
+export const APP_NAME = "Dennis Mwangi.";
 export const APP_TITLE = "Full Stack Developer";

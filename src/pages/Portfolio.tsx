@@ -34,7 +34,7 @@ const Portfolio: React.FC = () => {
           grayscale={false}
           openedImageWidth="900px"
           openedImageHeight="600px"
-          openedImageBorderRadius="24px"
+          openedImageBorderRadius="24px"          
         />
       </div>
     </div>
