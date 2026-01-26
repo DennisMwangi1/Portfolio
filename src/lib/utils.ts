@@ -5,7 +5,16 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export const caseStudies: any[] = [
+export interface CaseStudy {
+  clientName: string;
+  problem: string;
+  solution: string;
+  outcome: string;
+  image: string;
+  liveUrl: string;
+}
+
+export const caseStudies: CaseStudy[] = [
   {
     clientName: 'HLCC Africa',
     problem: 'Leadership consultancy lacked a professional digital presence to support their services across Africa, limiting client reach and credibility.',
