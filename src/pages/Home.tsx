@@ -207,21 +207,21 @@ const Home: React.FC<HomeProps> = () => {
       </section>
 
       {/* Footer */}
-      <footer className="border-t-2 border-black px-6 bg-white">
-        <div className="mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+      <footer className="border-t-2 border-black px-4 sm:px-6 py-6 bg-white">
+        <div className="mx-auto flex flex-col md:flex-row justify-between items-center gap-4 md:gap-8 text-center md:text-left">
           <div>
-            <p className="text-gray-500 max-w-xs text-sm">
+            <p className="text-gray-500 max-w-xs text-sm mx-auto md:mx-0">
               Made with <span className="text-red-500">&hearts;</span> by Dennis Mwangi.
             </p>
           </div>
-          <div className="flex gap-4">
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="p-2 hover:bg-gray-100 rounded-sm transition-colors">
+          <div className="flex gap-4 justify-center w-full md:w-auto">
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="p-3 hover:bg-gray-100 rounded-md transition-colors">
               <Github size={20} />
             </a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="p-2 hover:bg-gray-100 rounded-sm transition-colors">
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="p-3 hover:bg-gray-100 rounded-md transition-colors">
               <Linkedin size={20} />
             </a>
-            <a href="mailto:dennis@example.com" className="p-2 hover:bg-gray-100 rounded-sm transition-colors">
+            <a href="mailto:dennis@example.com" className="p-3 hover:bg-gray-100 rounded-md transition-colors">
               <Mail size={20} />
             </a>
           </div>
