@@ -6,8 +6,9 @@ type ImageItem = string | { src: string; alt?: string };
 
 type DomeGalleryProps = {
   images?: ImageItem[];
-  caseStudies?: CaseStudy[];
+  projects?: CaseStudy[];
   onCaseStudyClick?: (study: CaseStudy) => void;
+  onProjectSelect?: (study: CaseStudy | null) => void;
   fit?: number;
   fitBasis?: 'auto' | 'min' | 'max' | 'width' | 'height';
   minRadius?: number;
@@ -86,7 +87,7 @@ const getDataNumber = (el: HTMLElement, name: string, fallback: number) => {
   return Number.isFinite(n) ? n : fallback;
 };
 
-function buildItems(pool: ImageItem[], seg: number, caseStudies?: CaseStudy[]): ItemDef[] {
+function buildItems(pool: ImageItem[], seg: number, projects?: CaseStudy[]): ItemDef[] {
   const xCols = Array.from({ length: seg }, (_, i) => -37 + i * 2);
   const evenYs = [-4, -2, 0, 2, 4];
   const oddYs = [-3, -1, 1, 3, 5];
@@ -98,11 +99,11 @@ function buildItems(pool: ImageItem[], seg: number, caseStudies?: CaseStudy[]): 
 
   const totalSlots = coords.length;
 
-  if (caseStudies && caseStudies.length > 0) {
-    if (caseStudies.length > totalSlots) {
-      console.warn(`[DomeGallery] Case studies count (${caseStudies.length}) exceeds available tiles (${totalSlots}).`);
+  if (projects && projects.length > 0) {
+    if (projects.length > totalSlots) {
+      console.warn(`[DomeGallery] Case studies count (${projects.length}) exceeds available tiles (${totalSlots}).`);
     }
-    const usedStudies = Array.from({ length: totalSlots }, (_, i) => caseStudies[i % caseStudies.length]);
+    const usedStudies = Array.from({ length: totalSlots }, (_, i) => projects[i % projects.length]);
 
     // Shuffle slightly to avoid direct repeats if possible
     for (let i = 1; i < usedStudies.length; i++) {
@@ -173,8 +174,9 @@ function computeItemBaseRotation(offsetX: number, offsetY: number, sizeX: number
 
 export default function DomeGallery({
   images = DEFAULT_IMAGES,
-  caseStudies,
+  projects,
   onCaseStudyClick,
+  onProjectSelect,
   fit = 0.5,
   fitBasis = 'auto',
   minRadius = 600,
@@ -218,6 +220,7 @@ export default function DomeGallery({
   const openingRef = useRef(false);
   const openStartedAtRef = useRef(0);
   const lastDragEndAt = useRef(0);
+  const currentCaseStudyRef = useRef<CaseStudy | null>(null);
 
   const scrollLockedRef = useRef(false);
   const lockScroll = useCallback(() => {
@@ -232,7 +235,7 @@ export default function DomeGallery({
     document.body.classList.remove('dg-scroll-lock');
   }, []);
 
-  const items = useMemo(() => buildItems(images, segments, caseStudies), [images, segments, caseStudies]);
+  const items = useMemo(() => buildItems(images, segments, projects), [images, segments, projects]);
 
   const applyTransform = (xDeg: number, yDeg: number) => {
     const el = sphereRef.current;
@@ -474,6 +477,10 @@ export default function DomeGallery({
       const overlay = viewerRef.current?.querySelector('.enlarge') as HTMLElement | null;
       if (!overlay) return;
 
+      // Notify parent that project is being deselected
+      onProjectSelect?.(null);
+      currentCaseStudyRef.current = null;
+
       const refDiv = parent.querySelector('.item__image--reference') as HTMLElement | null;
 
       const originalPos = originalTilePositionRef.current;
@@ -604,6 +611,26 @@ export default function DomeGallery({
     openingRef.current = true;
     openStartedAtRef.current = performance.now();
     lockScroll();
+
+    // If no caseStudy provided, look it up from the parent element's data-item-index
+    let resolvedCaseStudy = caseStudy;
+    if (!resolvedCaseStudy) {
+      const parent = el.parentElement as HTMLElement;
+      const itemIndex = parent?.dataset?.itemIndex;
+      if (itemIndex !== undefined) {
+        const idx = parseInt(itemIndex, 10);
+        if (!isNaN(idx) && items[idx]?.caseStudy) {
+          resolvedCaseStudy = items[idx].caseStudy;
+        }
+      }
+    }
+
+    // Store and notify about the selected project
+    currentCaseStudyRef.current = resolvedCaseStudy || null;
+    if (resolvedCaseStudy) {
+      onProjectSelect?.(resolvedCaseStudy);
+    }
+
     const parent = el.parentElement as HTMLElement;
     focusedElRef.current = el;
     el.setAttribute('data-focused', 'true');
@@ -954,6 +981,7 @@ export default function DomeGallery({
                 <div
                   key={`${it.x},${it.y},${i}`}
                   className="sphere-item absolute m-auto"
+                  data-item-index={i}
                   style={
                     {
                       ['--offset-x' as any]: it.x,

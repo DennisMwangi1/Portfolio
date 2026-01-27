@@ -16,7 +16,7 @@ import {
   SiGraphql
 } from 'react-icons/si';
 import Stack from '@/components/shared/Stack';
-import { caseStudies } from '@/lib/utils';
+import { projects } from '@/lib/utils';
 import { TECHNOLOGIES } from '@/constants';
 import { Project } from '@/types';
 import GooeyNav from '@/components/shared/GooeyNav';
@@ -45,7 +45,7 @@ const Home: React.FC<HomeProps> = () => {
     { node: <SiGraphql />, title: "GraphQL", href: "https://graphql.org" },
   ];
 
-  const stackCards = caseStudies.map(cs => ({
+  const stackCards = projects.map(cs => ({
     title: cs.clientName,
     image: cs.image,
     synopsis: cs.problem.length > 80 ? cs.problem.slice(0, 77) + '...' : cs.problem,

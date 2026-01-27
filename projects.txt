@@ -19,7 +19,7 @@ export function Projects() {
   const whatsappMessage = encodeURIComponent("Hi Dennis, I'd like to discuss a project similar to the ones on your portfolio.");
   const whatsappUrl = `https://wa.me/${whatsappNumber.replace(/\+/g, '')}?text=${whatsappMessage}`;
 
-  const caseStudies = [
+  const projects = [
     {
       clientName: 'HLCC Africa',
       problem: 'Leadership consultancy lacked a professional digital presence to support their services across Africa, limiting client reach and credibility.',
@@ -94,7 +94,7 @@ export function Projects() {
 
           {/* Case Studies grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
-            {caseStudies.map((study, index) => (
+            {projects.map((study, index) => (
               <CaseStudyCard key={study.clientName} {...study} index={index} />
             ))}
           </div>

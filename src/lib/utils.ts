@@ -14,7 +14,7 @@ export interface CaseStudy {
   liveUrl: string;
 }
 
-export const caseStudies: CaseStudy[] = [
+export const projects: CaseStudy[] = [
   {
     clientName: 'HLCC Africa',
     problem: 'Leadership consultancy lacked a professional digital presence to support their services across Africa, limiting client reach and credibility.',

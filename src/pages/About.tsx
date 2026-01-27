@@ -2,7 +2,7 @@ import React from 'react';
 import { Github, Linkedin, Mail, ExternalLink, Download } from 'lucide-react';
 import Lanyard from '@/components/shared/Lanyard';
 import ProfileCard from '@/components/ProfileCard';
-import Dennis from '@/assets/lanyard/Dennis.jpeg';
+import Dennis from '../assets/lanyard/Dennis.png';
 
 const About: React.FC = () => {
   return (
