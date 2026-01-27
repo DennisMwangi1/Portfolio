@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import Navigation from '@/components/layout/Navigation';
 import AIChat from '@/components/shared/AIChat';
-import { Sparkles, ArrowLeft, Github, Linkedin, Mail } from 'lucide-react';
+import { ArrowLeft, Github, Linkedin, Mail } from 'lucide-react';
 
 const Layout: React.FC = () => {
     const [isChatOpen, setIsChatOpen] = useState(false);
@@ -27,7 +27,7 @@ const Layout: React.FC = () => {
                     onClick={() => setIsChatOpen(true)}
                     className="p-2 border border-gray-200 rounded-sm text-black hover:bg-gray-50"
                 >
-                    <Sparkles size={18} />
+                    <Mail size={18} />
                 </button>
             </div>
 
