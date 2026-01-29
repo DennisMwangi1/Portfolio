@@ -18,7 +18,7 @@ const About: React.FC = () => {
               <a href="https://github.com/DennisMwangi1" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 bg-gray-900 text-white rounded-sm hover:bg-black transition-colors">
                 <Github size={18} /> GitHub
               </a>
-              <a href="https://linkedin.com/in/dennismwangi" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-sm hover:bg-blue-700 transition-colors">
+              <a href="https://www.linkedin.com/in/dennis-kamau-mwangi/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-sm hover:bg-blue-700 transition-colors">
                 <Linkedin size={18} /> LinkedIn
               </a>
               <a href="mailto:denniskamau1803@gmail.com" className="flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-900 border border-gray-300 rounded-sm hover:bg-gray-200 transition-colors">
