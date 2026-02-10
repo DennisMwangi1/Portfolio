@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { ExternalLink, Lightbulb, Target, TrendingUp, X } from 'lucide-react';
-import { projects, CaseStudy } from '@/lib/utils';
+import { projects, Project } from '@/lib/utils';
 import DomeGallery from '@/components/DomeGallery';
 import TrueFocus from '@/components/TrueFocus';
 
 const Portfolio: React.FC = () => {
-  const [selectedProject, setSelectedProject] = useState<CaseStudy | null>(null);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
-  const handleProjectSelect = (project: CaseStudy | null) => {
+  const handleProjectSelect = (project: Project | null) => {
     setSelectedProject(project);
   };
 
@@ -109,17 +109,19 @@ const Portfolio: React.FC = () => {
           </div>
 
           {/* CTA Button */}
-          <div className="p-4 bg-white border-t border-gray-100">
+          {selectedProject?.liveUrl ? (
             <a
               href={selectedProject?.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 w-full py-3 px-4 bg-black hover:bg-gray-800 text-white font-bold rounded-xl transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg"
+              className="flex items-center justify-center gap-2 w-full py-3 px-4 bg-black hover:bg-gray-800 text-white font-bold rounded-xl transition-all duration-300"
             >
               <span>View Live Project</span>
               <ExternalLink className="w-4 h-4" />
             </a>
-          </div>
+          ) : (
+            <p className="text-center text-gray-500 text-sm p-4">Proprietary project can be viewed upon request</p>
+          )}
         </div>
       </div>
 
@@ -198,15 +200,20 @@ const Portfolio: React.FC = () => {
               </div>
 
               <div className="p-4 bg-white border-t border-gray-100">
-                <a
-                  href={project.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 w-full py-3 px-4 bg-black hover:bg-gray-800 text-white font-bold rounded-xl transition-all duration-300"
-                >
-                  <span>View Live Project</span>
-                  <ExternalLink className="w-4 h-4" />
-                </a>
+                {project.liveUrl ? (
+                  <a
+                    href={project.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2 w-full py-3 px-4 bg-black hover:bg-gray-800 text-white font-bold rounded-xl transition-all duration-300"
+                  >
+                    <span>View Live Project</span>
+                    <ExternalLink className="w-4 h-4" />
+                  </a>
+                ) : (
+                  <p className="flex items-center justify-center gap-2 w-full py-3 px-4 bg-black hover:bg-gray-800 text-white font-bold rounded-xl transition-all duration-300">Proprietary project can be viewed upon request</p>
+                )}
+
               </div>
             </div>
           ))}

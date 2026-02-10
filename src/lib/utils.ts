@@ -5,7 +5,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export interface CaseStudy {
+export interface Project {
   clientName: string;
   problem: string;
   solution: string;
@@ -14,7 +14,7 @@ export interface CaseStudy {
   liveUrl: string;
 }
 
-export const projects: CaseStudy[] = [
+export const projects: Project[] = [
   {
     clientName: 'HLCC Africa',
     problem: 'Leadership consultancy lacked a professional digital presence to support their services across Africa, limiting client reach and credibility.',
@@ -63,4 +63,20 @@ export const projects: CaseStudy[] = [
     image: '/img/nexus-home.png',
     liveUrl: 'https://nexus-omega-liart.vercel.app/',
   },
+  {
+    clientName: 'Enterprise Architecture Integration (Internal Tool)',
+    problem: 'The organization faced a critical disconnect between high-level architecture planning in Ardoq and execution in Azure DevOps. Manual replication of hierarchical work items (Epics → Features → Stories) was error-prone, time-consuming, and led to data inconsistencies.',
+    solution: 'Architected "ArchBridge," a custom full-stack synchronization platform using React, Node.js, and BullMQ. Features include a drag-and-drop field mapping engine, automated background job processing, and real-time hierarchical syncing.',
+    outcome: 'Eliminated manual data entry by automating the synchronization of complex work structures, ensuring 100% data alignment between architecture and development teams and significantly reducing administrative overhead.',
+    image: '/img/ArchBridge.png',
+    liveUrl: null,
+  },
+  {
+    clientName: 'Enterprise CRM Integration',
+    problem: 'A disconnect between the customer-facing application (Supabase) and the internal sales CRM (Dynamics 365) resulted in data fragmentation and manual entry errors.',
+    solution: 'Architected a serverless middleware solution using Azure Functions and TypeScript. I designed a bi-directional sync engine that automatically handles data mapping, conflict resolution, and secure authentication for thousands of records.',
+    outcome: 'Automated data flow between platforms, ensuring 100% data consistency and saving the operations team 20+ hours of manual data entry per week.',
+    image: '/img/CRMsync.png',
+    liveUrl: null,
+  }
 ];

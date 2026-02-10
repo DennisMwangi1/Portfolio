@@ -1,14 +1,14 @@
 import { useEffect, useMemo, useRef, useCallback } from 'react';
 import { useGesture } from '@use-gesture/react';
-import { CaseStudy } from '../lib/utils';
+import { Project } from '../lib/utils';
 
 type ImageItem = string | { src: string; alt?: string };
 
 type DomeGalleryProps = {
   images?: ImageItem[];
-  projects?: CaseStudy[];
-  onCaseStudyClick?: (study: CaseStudy) => void;
-  onProjectSelect?: (study: CaseStudy | null) => void;
+  projects?: Project[];
+  onProjectClick?: (study: Project) => void;
+  onProjectSelect?: (study: Project | null) => void;
   fit?: number;
   fitBasis?: 'auto' | 'min' | 'max' | 'width' | 'height';
   minRadius?: number;
@@ -34,7 +34,7 @@ type ItemDef = {
   y: number;
   sizeX: number;
   sizeY: number;
-  caseStudy?: CaseStudy;
+  Project?: Project;
 };
 
 const DEFAULT_IMAGES: ImageItem[] = [
@@ -87,7 +87,7 @@ const getDataNumber = (el: HTMLElement, name: string, fallback: number) => {
   return Number.isFinite(n) ? n : fallback;
 };
 
-function buildItems(pool: ImageItem[], seg: number, projects?: CaseStudy[]): ItemDef[] {
+function buildItems(pool: ImageItem[], seg: number, projects?: Project[]): ItemDef[] {
   const xCols = Array.from({ length: seg }, (_, i) => -37 + i * 2);
   const evenYs = [-4, -2, 0, 2, 4];
   const oddYs = [-3, -1, 1, 3, 5];
@@ -123,7 +123,7 @@ function buildItems(pool: ImageItem[], seg: number, projects?: CaseStudy[]): Ite
       ...c,
       src: usedStudies[i].image,
       alt: usedStudies[i].clientName,
-      caseStudy: usedStudies[i]
+      Project: usedStudies[i]
     }));
   }
 
@@ -175,7 +175,7 @@ function computeItemBaseRotation(offsetX: number, offsetY: number, sizeX: number
 export default function DomeGallery({
   images = DEFAULT_IMAGES,
   projects,
-  onCaseStudyClick,
+  onProjectClick,
   onProjectSelect,
   fit = 0.5,
   fitBasis = 'auto',
@@ -220,7 +220,7 @@ export default function DomeGallery({
   const openingRef = useRef(false);
   const openStartedAtRef = useRef(0);
   const lastDragEndAt = useRef(0);
-  const currentCaseStudyRef = useRef<CaseStudy | null>(null);
+  const currentProjectRef = useRef<Project | null>(null);
 
   const scrollLockedRef = useRef(false);
   const lockScroll = useCallback(() => {
@@ -479,7 +479,7 @@ export default function DomeGallery({
 
       // Notify parent that project is being deselected
       onProjectSelect?.(null);
-      currentCaseStudyRef.current = null;
+      currentProjectRef.current = null;
 
       const refDiv = parent.querySelector('.item__image--reference') as HTMLElement | null;
 
@@ -606,29 +606,29 @@ export default function DomeGallery({
     };
   }, [enlargeTransitionMs, openedImageBorderRadius, grayscale]);
 
-  const openItemFromElement = (el: HTMLElement, caseStudy?: CaseStudy) => {
+  const openItemFromElement = (el: HTMLElement, Project?: Project) => {
     if (openingRef.current) return;
     openingRef.current = true;
     openStartedAtRef.current = performance.now();
     lockScroll();
 
-    // If no caseStudy provided, look it up from the parent element's data-item-index
-    let resolvedCaseStudy = caseStudy;
-    if (!resolvedCaseStudy) {
+    // If no Project provided, look it up from the parent element's data-item-index
+    let resolvedProject = Project;
+    if (!resolvedProject) {
       const parent = el.parentElement as HTMLElement;
       const itemIndex = parent?.dataset?.itemIndex;
       if (itemIndex !== undefined) {
         const idx = parseInt(itemIndex, 10);
-        if (!isNaN(idx) && items[idx]?.caseStudy) {
-          resolvedCaseStudy = items[idx].caseStudy;
+        if (!isNaN(idx) && items[idx]?.Project) {
+          resolvedProject = items[idx].Project;
         }
       }
     }
 
     // Store and notify about the selected project
-    currentCaseStudyRef.current = resolvedCaseStudy || null;
-    if (resolvedCaseStudy) {
-      onProjectSelect?.(resolvedCaseStudy);
+    currentProjectRef.current = resolvedProject || null;
+    if (resolvedProject) {
+      onProjectSelect?.(resolvedProject);
     }
 
     const parent = el.parentElement as HTMLElement;
@@ -1005,7 +1005,7 @@ export default function DomeGallery({
                       if (movedRef.current) return;
                       if (performance.now() - lastDragEndAt.current < 80) return;
                       if (openingRef.current) return;
-                      openItemFromElement(e.currentTarget as HTMLElement, it.caseStudy);
+                      openItemFromElement(e.currentTarget as HTMLElement, it.Project);
                     }}
                     onPointerUp={e => {
                       if ((e.nativeEvent as PointerEvent).pointerType !== 'touch') return;
@@ -1013,7 +1013,7 @@ export default function DomeGallery({
                       if (movedRef.current) return;
                       if (performance.now() - lastDragEndAt.current < 80) return;
                       if (openingRef.current) return;
-                      openItemFromElement(e.currentTarget as HTMLElement, it.caseStudy);
+                      openItemFromElement(e.currentTarget as HTMLElement, it.Project);
                     }}
                     style={{
                       inset: '10px',
@@ -1031,8 +1031,8 @@ export default function DomeGallery({
                       }}
                     />
                     <div className="item-info">
-                      <div className="item-title">{it.caseStudy.clientName}</div>
-                      <div className="item-desc">{it.caseStudy.problem}</div>
+                      <div className="item-title">{it.Project.clientName}</div>
+                      <div className="item-desc">{it.Project.problem}</div>
                     </div>
                   </div>
                 </div>
